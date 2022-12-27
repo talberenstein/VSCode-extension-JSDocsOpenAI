@@ -17,7 +17,11 @@
     "commands": [
       {
         "command": "documentation-openai-extension.document",
-        "title": "Create JSDocs with OpenAI"
+        "title": "Create documentation with OpenAI"
+      },
+      {
+        "command": "documentation-openai-extension.explain",
+        "title": "Explain code with OpenAI"
       }
     ],
     "menus": {
@@ -27,18 +31,24 @@
           "group": "1_modification",
           "when": "editorHasSelection",
           "title": "Document with OpenAI"
+        },
+        {
+          "command": "documentation-openai-extension.explain",
+          "group": "1_modification",
+          "when": "editorHasSelection",
+          "title": "Explain with OpenAI"
         }
       ]
     },
     "configuration": {
-      "title": "OpenAiJsDocs",
+      "title": "OpenAiDocs",
       "properties": {
-        "OpenAiJsDocs.apiKey": {
+        "OpenAiDocs.apiKey": {
           "type": "string",
           "default": "",
           "description": "ApiKey provided for OpenAI.com."
         },
-        "OpenAiJsDocs.temperature": {
+        "OpenAiDocs.temperature": {
           "type": "number",
           "default": "0",
           "description": "From 0(min) to 0.9 (max)"
