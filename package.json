@@ -54,6 +54,11 @@
           "type": "number",
           "default": "0",
           "description": "From 0(min) to 0.9 (max)"
+        },
+        "OpenAiDocs.max_tokens": {
+          "type": "number",
+          "default": "240",
+          "description": "max 4096. Higher number: More complex answer, more expensive"
         }
       }
     }

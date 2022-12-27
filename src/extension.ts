@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
-import { Configuration, OpenAIApi } from 'openai';
+import * as vscode from "vscode";
+import { Configuration, OpenAIApi } from "openai";
 
 /**
  * Opens an untitled file with some initial content.
@@ -16,29 +16,39 @@ async function openInUntitled(content: string, language?: string) {
   });
 }
 
-
 export async function activate(context: vscode.ExtensionContext) {
   // Get selected text editors
   const selectionTextEditor = vscode.window.activeTextEditor?.selection;
-  const apiKey = vscode.workspace.getConfiguration().get('OpenAiDocs.apiKey') as string;
+  const apiKey = vscode.workspace
+    .getConfiguration()
+    .get("OpenAiDocs.apiKey") as string;
 
   // Get temperature from settings
-  const temperature = vscode.workspace.getConfiguration().get('OpenAiDocs.temperature') as number;
+  const temperature = vscode.workspace
+    .getConfiguration()
+    .get("OpenAiDocs.temperature") as number;
+
+  //Get maxTokens from settings
+  const max_tokens = vscode.workspace
+    .getConfiguration()
+    .get("OpenAiDocs.max_tokens") as number;
 
   // Configuration for OpenAI api
   const configuration = new Configuration({ apiKey });
 
   // Register this command
   let disposable = vscode.commands.registerCommand(
-    'documentation-openai-extension.document',
+    "documentation-openai-extension.document",
     async () => {
       // Ensure apiKey is set in settings
       if (!apiKey) {
-        return vscode.window.showInformationMessage('Please set your OpenAI API Key in settings');
+        return vscode.window.showInformationMessage(
+          "Please set your OpenAI API Key in settings"
+        );
       }
 
       vscode.window.showInformationMessage(
-        'Loading response... This can take a while'
+        "Loading response... This can take a while"
       );
 
       // Call the OpenAi API
@@ -46,8 +56,8 @@ export async function activate(context: vscode.ExtensionContext) {
       const input = editor && editor.document.getText(selectionTextEditor);
       const openai = new OpenAIApi(configuration);
       const response = await openai.createEdit({
-        model: 'code-davinci-edit-001',
-        instruction: 'Create documentation of this code\n',
+        model: "code-davinci-edit-001",
+        instruction: "Create documentation of this code\n",
         input,
         temperature,
       });
@@ -59,15 +69,17 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
   let disposable2 = vscode.commands.registerCommand(
-    'documentation-openai-extension.explain',
+    "documentation-openai-extension.explain",
     async () => {
       // Ensure apiKey is set in settings
       if (!apiKey) {
-        return vscode.window.showInformationMessage('Please set your OpenAI API Key in settings');
+        return vscode.window.showInformationMessage(
+          "Please set your OpenAI API Key in settings"
+        );
       }
 
       vscode.window.showInformationMessage(
-        'Loading response... This can take a while'
+        "Loading response... This can take a while"
       );
 
       // Call the OpenAi API
@@ -75,10 +87,10 @@ export async function activate(context: vscode.ExtensionContext) {
       const input = editor && editor.document.getText(selectionTextEditor);
       const openai = new OpenAIApi(configuration);
       const response = await openai.createCompletion({
-        model: 'text-davinci-003',
-        prompt: 'What does this code?\n' + input,
+        model: "text-davinci-003",
+        prompt: "What does this code?\n" + input,
         temperature,
-        max_tokens: 4000,
+        max_tokens,
       });
 
       // Show the response
