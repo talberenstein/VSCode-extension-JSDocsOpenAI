@@ -1,0 +1,74 @@
+{
+  "name": "documentation-openai-extension",
+  "displayName": "Documentation with OpenAI Extension",
+  "description": "Extends use of the official OpenAI API  to work with VSCODE",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:documentation-openai-extension.document"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "documentation-openai-extension.document",
+        "title": "Create JSDocs with OpenAI"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "documentation-openai-extension.document",
+          "group": "1_modification",
+          "when": "editorHasSelection",
+          "title": "Document with OpenAI"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "OpenAiJsDocs",
+      "properties": {
+        "OpenAiJsDocs.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "ApiKey provided for OpenAI.com."
+        },
+        "OpenAiJsDocs.temperature": {
+          "type": "number",
+          "default": "0",
+          "description": "From 0(min) to 0.9 (max)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "axios": "^1.2.1",
+    "openai": "^3.1.0"
+  }
+}
