@@ -68,7 +68,7 @@ export async function activate(context: vscode.ExtensionContext) {
       }
     }
   );
-  let disposable2 = vscode.commands.registerCommand(
+  let disposableExplain = vscode.commands.registerCommand(
     "documentation-openai-extension.explain",
     async () => {
       // Ensure apiKey is set in settings
@@ -101,7 +101,7 @@ export async function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(disposable);
-  context.subscriptions.push(disposable2);
+  context.subscriptions.push(disposableExplain);
 }
 
 export function deactivate() {}
