@@ -14,15 +14,15 @@ async function openInUntitled(content: string, language?: string) {
 }
 
 export async function activate(context: vscode.ExtensionContext) {
-  const editor2 = vscode.window.activeTextEditor?.selection;
+  const selectionTextEditor = vscode.window.activeTextEditor?.selection;
 
   console.log(
     "CONFIG=",
-    vscode.workspace.getConfiguration().get('OpenAiJsDocs.apiKey')
+    vscode.workspace.getConfiguration().get("OpenAiJsDocs.apiKey")
   );
   const configuration = new Configuration({
     organization: "",
-    apiKey: vscode.workspace.getConfiguration().get('OpenAiJsDocs.apiKey'),
+    apiKey: vscode.workspace.getConfiguration().get("OpenAiJsDocs.apiKey"),
   });
   // const res = await axios.get('https://api.openai.com/v1/completions');
   console.log(
@@ -40,9 +40,11 @@ export async function activate(context: vscode.ExtensionContext) {
       const openai = new OpenAIApi(configuration);
       const response = await openai.createEdit({
         model: "code-davinci-edit-001",
-        input: editor && editor.document.getText(editor2),
+        input: editor && editor.document.getText(selectionTextEditor),
         instruction: "Create JSDocs of this code\n",
-        temperature: vscode.workspace.getConfiguration().get('OpenAiJsDocs.temperature')
+        temperature: vscode.workspace
+          .getConfiguration()
+          .get("OpenAiJsDocs.temperature"),
       });
       console.log(response);
       response.data.choices[0].text &&
