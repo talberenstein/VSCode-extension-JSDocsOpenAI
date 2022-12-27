@@ -3,7 +3,7 @@
   "displayName": "Documentation with OpenAI",
   "publisher": "TalBerenstein",
   "description": "Extends use of the official OpenAI API  to work with VSCODE",
-  "icon": "./resources/icon.png",
+  "icon": "resources/icon.png",
   "version": "0.0.2",
   "engines": {
     "vscode": "^1.74.0"
