@@ -38,6 +38,10 @@ To get an explanation of selected code, follow the same steps but use the `Docum
 
 ## Release Notes
 
+### 0.1.0
+
+Now max_tokens can be dinamically changed from the settings
+
 ### 0.0.1
 
 Initial release of the OpenAI Documentation Extension for VS Code.
